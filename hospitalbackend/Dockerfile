@@ -1,5 +1,13 @@
 FROM eclipse-temurin:21
 
-COPY target/hospitalbackend-0.0.1-SNAPSHOT.jar app.jar
+WORKDIR /app
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY . .
+
+RUN chmod +x mvnw
+
+RUN ./mvnw clean package -DskipTests
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","target/hospitalbackend-0.0.1-SNAPSHOT.jar"]
