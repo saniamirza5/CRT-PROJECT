@@ -1,24 +1,20 @@
 package com.hospital.hospitalbackend.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "doctor")
+
 public class Doctor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int doctorId;
 
     private String doctorName;
 
     private String specialization;
-
-    @OneToMany(mappedBy = "doctor")
-    @JsonManagedReference
-    private List<Patient> patients;
 
     // Default Constructor
     public Doctor() {
@@ -48,13 +44,5 @@ public class Doctor {
 
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
-    }
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
     }
 }
