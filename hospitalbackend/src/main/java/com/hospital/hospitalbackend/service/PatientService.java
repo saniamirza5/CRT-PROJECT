@@ -37,11 +37,10 @@ public class PatientService {
 
         Patient patient = new Patient();
 
+        patient.setPatientId(patientDTO.getPatientId());
         patient.setPatientName(patientDTO.getPatientName());
-        patient.setBedNumber(patientDTO.getBedNumber());
-        patient.setDays(patientDTO.getDays());
-
-        patient.setDoctor(patientDTO.getDoctor());
+        patient.setDisease(patientDTO.getDisease());
+        patient.setDoctorAssigned(patientDTO.getDoctorAssigned());
 
         return patientRepository.save(patient);
     }
@@ -76,8 +75,8 @@ public class PatientService {
                                 "Patient with ID " + id + " not found"));
 
         patient.setPatientName(updatedPatient.getPatientName());
-        patient.setBedNumber(updatedPatient.getBedNumber());
-        patient.setDays(updatedPatient.getDays());
+        patient.setDisease(updatedPatient.getDisease());
+        patient.setDoctorAssigned(updatedPatient.getDoctorAssigned());
 
         return patientRepository.save(patient);
     }

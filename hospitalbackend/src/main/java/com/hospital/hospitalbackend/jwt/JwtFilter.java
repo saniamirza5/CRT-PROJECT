@@ -24,10 +24,10 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // Allow Public APIs
-        if (path.startsWith("/")
-                || path.startsWith("/swagger-ui")
+        if (path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs")
-                || path.startsWith("/auth")) {
+                || path.startsWith("/auth")
+                || path.startsWith("/patients")) {
 
             filterChain.doFilter(request, response);
 

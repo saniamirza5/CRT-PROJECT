@@ -3,51 +3,36 @@ package com.hospital.hospitalbackend.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "patients")
+
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int patientId;
 
-    @NotBlank(message = "Patient name cannot be empty")
     private String patientName;
 
-    @Positive(message = "Bed number must be positive")
-    private int bedNumber;
+    private String disease;
 
-    @Min(value = 0, message = "Days cannot be negative")
-    private int days;
-
-    // Many Patients -> One Doctor
-    @ManyToOne
-    @JoinColumn(name = "doctor_id")
-    @JsonBackReference
-    private Doctor doctor;
+    private String doctorAssigned;
 
     // Default Constructor
     public Patient() {
     }
 
-    // Parameterized Constructor
-    public Patient(int patientId, String patientName,
-                   int bedNumber, int days, Doctor doctor) {
+    // Constructor
+    public Patient(
+            int patientId,
+            String patientName,
+            String disease,
+            String doctorAssigned) {
 
         this.patientId = patientId;
         this.patientName = patientName;
-        this.bedNumber = bedNumber;
-        this.days = days;
-        this.doctor = doctor;
+        this.disease = disease;
+        this.doctorAssigned = doctorAssigned;
     }
 
     // Getters and Setters
@@ -68,27 +53,19 @@ public class Patient {
         this.patientName = patientName;
     }
 
-    public int getBedNumber() {
-        return bedNumber;
+    public String getDisease() {
+        return disease;
     }
 
-    public void setBedNumber(int bedNumber) {
-        this.bedNumber = bedNumber;
+    public void setDisease(String disease) {
+        this.disease = disease;
     }
 
-    public int getDays() {
-        return days;
+    public String getDoctorAssigned() {
+        return doctorAssigned;
     }
 
-    public void setDays(int days) {
-        this.days = days;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctorAssigned(String doctorAssigned) {
+        this.doctorAssigned = doctorAssigned;
     }
 }

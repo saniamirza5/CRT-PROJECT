@@ -18,6 +18,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/patients")
+
+@CrossOrigin(
+        origins = {
+                "http://localhost:5173",
+                "https://your-frontend-url.vercel.app"
+        }
+)
+
 public class PatientController {
 
     @Autowired
