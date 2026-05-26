@@ -5,10 +5,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Component
 public class JwtFilter extends OncePerRequestFilter {
 
     @Override
@@ -21,8 +23,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
-        // Allow Swagger and Auth APIs
-        if (path.startsWith("/swagger-ui")
+        // Allow Public APIs
+        if (path.startsWith("/")
+                || path.startsWith("/swagger-ui")
                 || path.startsWith("/v3/api-docs")
                 || path.startsWith("/auth")) {
 
@@ -34,13 +37,11 @@ public class JwtFilter extends OncePerRequestFilter {
         String authHeader =
                 request.getHeader("Authorization");
 
+        // If token missing → continue request
         if (authHeader == null
                 || !authHeader.startsWith("Bearer ")) {
 
-            response.setStatus(
-                    HttpServletResponse.SC_UNAUTHORIZED);
-
-            response.getWriter().write("JWT Token Missing");
+            filterChain.doFilter(request, response);
 
             return;
         }
